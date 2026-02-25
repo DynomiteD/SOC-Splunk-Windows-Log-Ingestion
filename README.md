@@ -116,7 +116,7 @@ Confirmed:
 
 Screenshot Evidence:
 
-![Sysmon Ingestion](screenshots/soc_lab_sysmon_log_ingestion_verified.png)
+![Sysmon Ingestion](screenshots/05_sysmon_ingestion_success.png)
 
 ## Issues Encountered & Resolution
 
