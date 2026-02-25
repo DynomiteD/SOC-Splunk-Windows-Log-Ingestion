@@ -118,8 +118,6 @@ Screenshot Evidence:
 
 ![Sysmon Ingestion](screenshots/soc_lab_sysmon_log_ingestion_verified.png)
 
----
-
 ## Issues Encountered & Resolution
 
 ### Issue: Sysmon logs not ingesting
