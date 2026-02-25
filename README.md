@@ -23,7 +23,7 @@ The objective was to configure, troubleshoot, and validate a working SOC-style l
 
 ### Custom Windows Index Created
 
-![Custom Windows Index Created](screenshots/08_custom-windows-index-created.png)
+![Custom Windows Index Created](screenshots/08-custom-windows-index-created.png)
 
 
 ## Architecture
