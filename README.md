@@ -19,7 +19,11 @@ The objective was to configure, troubleshoot, and validate a working SOC-style l
 ![Docker Container Running](screenshots/01-docker-container-running.png)
 ![Docker Container Healthy](screenshots/03-docker-container-healthy.png)
 ![Splunk Login Page](screenshots/04-splunk-login-page.png)
+![Splunk Home Dashboard](screenshots/05_splunk-home-dashboard.png)
 
+### Custom Windows Index Created
+
+![Custom Windows Index Created](screenshots/08_custom-windows-index-created.png)
 
 
 ## Architecture
