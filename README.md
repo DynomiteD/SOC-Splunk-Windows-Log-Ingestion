@@ -16,7 +16,11 @@ The objective was to configure, troubleshoot, and validate a working SOC-style l
 - Ubuntu VM running Dockerized Splunk Enterprise
 - TCP Port 9997 for log forwarding
 
----
+![Docker Container Running](screenshots/01-docker-container-running.png)
+
+
+
+
 
 ## Architecture
 
