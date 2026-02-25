@@ -18,7 +18,7 @@ The objective was to configure, troubleshoot, and validate a working SOC-style l
 
 ![Docker Container Running](screenshots/01-docker-container-running.png)
 ![Docker Container Healthy](screenshots/03-docker-container-healthy.png)
-
+![Splunk Login Page](screenshots/04-splunk-login.png)
 
 
 
