@@ -17,6 +17,7 @@ The objective was to configure, troubleshoot, and validate a working SOC-style l
 - TCP Port 9997 for log forwarding
 
 ![Docker Container Running](screenshots/01-docker-container-running.png)
+![Docker Container Healthy](screenshots/03-docker-container-healthy.png)
 
 
 
