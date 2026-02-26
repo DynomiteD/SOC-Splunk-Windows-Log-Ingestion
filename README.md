@@ -99,6 +99,10 @@ SPL Used:
 index=wineventlog | stats count by sourcetype
 ```
 
+Screenshot Evidence:
+
+![Wineventlog Verification](screenshots/06-wineventlog-ingestion-verification.png)
+
 Confirmed ingestion of:
 - Application logs
 - Security logs
