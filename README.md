@@ -21,10 +21,7 @@ The objective was to configure, troubleshoot, and validate a working SOC-style l
 ![Splunk Login Page](screenshots/04-splunk-login-page.png)
 ![Splunk Home Dashboard](screenshots/05-splunk-home-dashboard.png)
 
-### Custom Windows Index Created
-
-![Custom Windows Index Created](screenshots/08-custom-windows-index-created.png)
-
+---
 
 ## Architecture
 
@@ -37,6 +34,7 @@ Windows 11
 - wineventlog
 - sysmon
 
+This architecture simulates a simplified SOC telemetry pipeline where endpoint telemetry is centrally aggregated and analyzed within a SIEM platform.
 ---
 
 ## Index Creation
@@ -50,12 +48,27 @@ Verified in:
 
 Settings → Indexes
 
+### Custom Windows Index Created
+
+![Custom Windows Index Created](screenshots/08-custom-windows-index-created.png)
+
+## Receiving Port Configuration
+
+Splunk was configured to receive logs on TCP port 9997.
+
+![Receiving Port 9997 Enabled](screenshots/splunk-receiving-port-9997.png)
 ---
 
 ## Universal Forwarder Configuration
 
-### inputs.conf
+![Forwarder Installed](screenshots/forwarder-already-installed.png)
 
+![Forwarder Service Running](screenshots/forwarder-service-running.png)
+
+![Forwarder Restart Success](screenshots/10-forwarder-restart-success.png)
+---
+
+### inputs.conf
 ```ini
 [WinEventLog://Application]
 index = wineventlog
@@ -71,9 +84,7 @@ disabled = 0
 renderXml = true
 index = sysmon
 ```
-
 ### outputs.conf
-
 ```ini
 [tcpout]
 defaultGroup = indexer_group
@@ -82,25 +93,18 @@ defaultGroup = indexer_group
 server = <Splunk_Server_IP>:9997
 useACK = true
 ```
-
 The SplunkForwarder service was configured to run as:
 
 LocalSystem
 
 This was required to allow access to the Sysmon event channel.
 
----
-
 ## Verification – Windows Event Logs
 
 SPL Used:
-
 ```
 index=wineventlog | stats count by sourcetype
 ```
-
-Screenshot Evidence:
-
 ![Wineventlog Verification](screenshots/06-wineventlog-ingestion-verification.png)
 
 Confirmed ingestion of:
@@ -119,30 +123,42 @@ SPL Used:
 index=sysmon
 ```
 
+![Sysmon Ingestion Success](screenshots/05_sysmon_ingestion_success.png)
+
+![Windows VM Sysmon Event Viewer](screenshots/02_windows_vm_event_viewer_sysmon.png)
+
 Confirmed:
 - Event ID 1 (Process Creation)
 - CommandLine field visibility
 - ParentImage
 - Hash values
 - Sourcetype: XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
-
-Screenshot Evidence:
-
-![Sysmon Ingestion](screenshots/05_sysmon_ingestion_success.png)
+  
+---  
 
 ## Issues Encountered & Resolution
 
-### Issue: Sysmon logs not ingesting
+![No Data Ingested Yet](screenshots/07_No_Data_Ingested_Yet.png)
 
+![Sysmon Wide Search No Results](screenshots/Sysmon_WideSearch_NoResults.png)
+
+![Command Syntax Error](screenshots/Troubleshooting_03_Command_Syntax_Error.png)
+
+![Guest Additions Installed](screenshots/Troubleshooting_04_GuestAdditions_Installed.png)
+
+---
+
+### Issue: Sysmon logs not ingesting
 Symptoms:
 - wineventlog index populated
 - sysmon index empty
 
 Root Cause:
-SplunkForwarder service running as:
-NT SERVICE\SplunkForwarder
+The SplunkForwarder service was running under the default service account:
+NT SERVICE\SplunkForwarder.
 
-This account lacked permission to read the Sysmon log channel.
+This account does not have sufficient privileges to access the
+Microsoft-Windows-Sysmon/Operational event channel.
 
 Resolution:
 Changed service account to:
@@ -152,8 +168,6 @@ Restarted forwarder service.
 
 Result:
 Sysmon logs successfully ingested into the sysmon index.
-
----
 
 ## Skills Demonstrated
 
@@ -171,7 +185,7 @@ Sysmon logs successfully ingested into the sysmon index.
 
 ## Snapshot Strategy
 
-Final stable snapshot created:
+A final stable VM snapshot was created to preserve the validated ingestion state:
 
 Lab1_Log_Ingestion_Sysmon_Working_Final
 
@@ -182,3 +196,5 @@ This allows rollback to a verified working ingestion state.
 ## Outcome
 
 Successfully built, configured, and validated a Windows log ingestion pipeline suitable for SOC monitoring and detection workflows.
+
+---
